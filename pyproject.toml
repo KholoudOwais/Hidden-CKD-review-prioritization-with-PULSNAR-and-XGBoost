@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ckd-pulscar-xgb"
+version = "1.0.0"
+description = "Reusable components for a PULSCAR-XGBoost CKD review-prioritization workflow"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+  "numpy>=2,<3",
+  "pandas>=2.2,<4",
+  "scikit-learn>=1.9,<1.10",
+  "xgboost>=3,<4",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

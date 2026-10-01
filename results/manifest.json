@@ -1,0 +1,137 @@
+{
+  "analysis": "CKD hidden-risk review prioritization",
+  "notebook_version": "1.0",
+  "execution_mode": "authorized_full_rerun",
+  "pipeline": "official PULSCAR discovery -> mean-imputed XGBoost",
+  "score_interpretation": "review-priority ranking; not a calibrated CKD probability or diagnosis",
+  "cohort_contract": [
+    {
+      "cohort": "Training",
+      "patients": 69701,
+      "documented_ckd": 5042,
+      "unlabeled": 64659
+    },
+    {
+      "cohort": "Validation",
+      "patients": 14923,
+      "documented_ckd": 1089,
+      "unlabeled": 13834
+    },
+    {
+      "cohort": "Locked internal test",
+      "patients": 14927,
+      "documented_ckd": 1071,
+      "unlabeled": 13856
+    }
+  ],
+  "retained_features": [
+    "AGE_AT_INDEX",
+    "GENDER",
+    "BMI_MODEL",
+    "SBP",
+    "DBP",
+    "PULSE_FINAL",
+    "DERIVED_EGFR_CKD_EPI_2021",
+    "BUN_FINAL_MMOL_L",
+    "POTASSIUM_FINAL_MMOL_L",
+    "SODIUM_FINAL_MMOL_L",
+    "HEMOGLOBIN_MODEL_G_L",
+    "MCV_MODEL_FL",
+    "RDW_CV_MODEL_PERCENT",
+    "WBC_MODEL_10E9_L",
+    "PLATELETS_MODEL_10E9_L",
+    "MPV_MODEL_FL",
+    "LYMPHOCYTES_ABSOLUTE_MODEL_10E9_L",
+    "EOSINOPHILS_ABSOLUTE_MODEL_10E9_L",
+    "EGFR_MIN_24M",
+    "EGFR_MEAN_24M"
+  ],
+  "excluded_features": [
+    "UACR_LOG1P_FINAL",
+    "EGFR_PREVIOUS_90D",
+    "EGFR_CHANGE_LAST_MINUS_PREVIOUS_90D",
+    "EGFR_DAYS_BETWEEN_90D_MEASUREMENTS",
+    "EGFR_SLOPE_PER_30_DAYS_90D"
+  ],
+  "locked_xgboost_parameters": {
+    "n_estimators": 700,
+    "learning_rate": 0.04590659413126398,
+    "reg_lambda": 13.008281483228425,
+    "colsample_bytree": 0.7953856488673938,
+    "max_depth": 5,
+    "min_child_weight": 5.598456360046426,
+    "subsample": 0.6746041940331612
+  },
+  "expected_training_alpha": 0.0041,
+  "expected_training_probable_positives": 265,
+  "bootstrap_replicates": 500,
+  "bootstrap_seeds": {
+    "validation": 51290,
+    "internal_test": 51212,
+    "egfr_comparator": 51213
+  },
+  "input_sha256": {
+    "training": "5fd3e6b52db51a6133cae6eff4cf04f1ed29f4dc0c5aa2b0f9a61fb306069618",
+    "validation_predictors": "b111df28dd2d7e9f2ddf8105e50ed7cd00d1aa5a9363dd4d50613850d594c4c9",
+    "validation_outcomes": "f94eb16c648d29dd7b923650417f3ecba9cb6cd7db3958060a3b397c6740f191",
+    "test_predictors": "e2931e0d4ae4dd855b128bce741e8ac9d62e97ebd7d26e1c48c95f7ec46e14b9",
+    "test_outcomes": "89755e5f733cfe581b41b74421a286d3f92daa0dc7013a401d4a2da2ef67c734",
+    "software_lock": "75dd87764139b29876251705b8f47e1319e444a1c0dff20fcd8b662a64d0ab8b",
+    "pulscar_wheel": "cae4759a2043ff44df74581a2efeaea7c72d56d12d974b8abd8d246839692417"
+  },
+  "output_sha256": {
+    "software_versions.csv": "167d9fba18ce33662fe30e453d45e1884fa3da464f841a4f5b380fee0476ba8c",
+    "training_feature_policy.csv": "90316e38624fe0db442515064e3b59fe99b69c4a776a31a442933af15e8117a1",
+    "validation_scores_outcome_blind.parquet": "3aebcbc03e53f93cbca40837bd3fc1eccee1073e3858cdf16b1953d2e4af303b",
+    "internal_test_scores_outcome_blind.parquet": "d72eb6e183d88852eca95773deecfbe3e1262371f7b27da1cb2516d36da6d140",
+    "locked_model.joblib": "907f7ac4844906701c0c098153dd97948d45cca22005ad09fa34df07122e731d",
+    "locked_preprocessor.joblib": "4b5ce353b327fb88919b6eac7ff44b95300d1b86e3d03f81b11dc89c8810bd57",
+    "validation_metrics_bootstrap_ci.csv": "c001eb90fa39db280878915837fd4fe62da68e67e77ad1c83a22e95615a48661",
+    "internal_test_metrics_bootstrap_ci.csv": "abc09f58c2815a748ff03a4d86f5d4eeb15a03339738877ffc7adc60b41e5596",
+    "internal_test_egfr_comparator_paired_bootstrap.csv": "fd3f6047595ab374e89c6416a20e6a4a6c830059c55540ee22ee76ed9e6df762",
+    "global_treeshap_transformed_features.csv": "c192adaa7fdc102dd9e61d1b38920412a3fadde3ed52314cfd8cf9e2da25c32a"
+  },
+  "software": [
+    {
+      "component": "python",
+      "version": "3.13.15"
+    },
+    {
+      "component": "numpy",
+      "version": "2.1.3"
+    },
+    {
+      "component": "pandas",
+      "version": "2.2.3"
+    },
+    {
+      "component": "pyarrow",
+      "version": "23.0.1"
+    },
+    {
+      "component": "scikit-learn",
+      "version": "1.9.1"
+    },
+    {
+      "component": "xgboost",
+      "version": "3.4.1"
+    },
+    {
+      "component": "optuna",
+      "version": "4.9.0"
+    },
+    {
+      "component": "joblib",
+      "version": "1.6.0"
+    },
+    {
+      "component": "shap",
+      "version": "0.52.0"
+    },
+    {
+      "component": "matplotlib",
+      "version": "3.10.0"
+    }
+  ],
+  "restricted_data_in_notebook": false
+}
